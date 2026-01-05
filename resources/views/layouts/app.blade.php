@@ -11,6 +11,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <title>@yield('title', 'TOKMUCH - Portfolio Digital & E-Katalog')</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
     {{-- Custom CSS dari section --}}
     @yield('styles')
@@ -171,6 +172,36 @@
         .nav-links a:hover::after {
             width: 100%;
         }
+
+        .hamburger {
+            display: none; /* Sembunyi di desktop */
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 1001; /* Di atas menu */
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-primary);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Animasi Hamburger jadi 'X' saat aktif */
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+            background-color: var(--accent-coral);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+            background-color: var(--accent-coral);
+        }
         
         /* Container */
         .container {
@@ -220,22 +251,53 @@
         }
         
         /* Responsive */
-        @media (max-width: 768px) {
+@media (max-width: 768px) {
             nav {
-                padding: 0 1rem; /* Reduce padding on mobile */
+                padding: 0 1.5rem;
             }
             
             .logo-image {
-                height: 45px; /* Smaller logo on mobile */
+                height: 60px;
+            }
+
+            .hamburger {
+                display: flex; /* Munculkan tombol di HP */
             }
 
             .nav-links {
-                gap: 1rem;
-                font-size: 1rem;
+                position: fixed;
+                top: 0;
+                right: -100%; /* Sembunyi di kanan layar */
+                height: 100vh;
+                width: 70%; /* Lebar menu 70% layar */
+                background-color: rgba(28, 28, 28, 0.98); /* Background gelap transparan dikit */
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: right 0.4s ease-in-out;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+                z-index: 1000;
             }
-            
-            .logo {
-                font-size: 0.9rem;
+
+            /* Class ini ditambahkan via JS saat tombol diklik */
+            .nav-links.active {
+                right: 0; /* Geser masuk ke layar */
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                font-weight: bold;
+                opacity: 0; /* Efek fade in */
+                transform: translateX(20px);
+                transition: all 0.5s ease;
+            }
+
+            /* Animasi teks muncul berurutan saat menu dibuka */
+            .nav-links.active a {
+                opacity: 1;
+                transform: translateX(0);
             }
         }
 
@@ -275,6 +337,30 @@
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
+            }
+        });
+
+        // Hamburger menu mobile
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const links = document.querySelectorAll('.nav-links li a');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
             }
         });
 

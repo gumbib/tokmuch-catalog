@@ -511,7 +511,7 @@
         }
 
         .hero-logo {
-            height: 80px; /* Lebih kecil di mobile */
+            height: 180px;
         }
         
         .about-content {
@@ -575,7 +575,10 @@
         @foreach($categories as $category)
         <div class="category-section">
             <div class="category-header" style="background: {{ $category->gradient_color }};">
-                <h3>{{ $category->icon }} {{ $category->name }}</h3>
+                <h3>
+                    <i class="{{ $category->icon }}" style="margin-right: 10px; vertical-align: middle; transform: translateY(-4px);"></i> 
+                    {{ $category->name }}
+                </h3>
                 <span class="price-range">{{ $category->price_range }}</span>
             </div>
             
@@ -596,7 +599,7 @@
                                      alt="{{ $featuredProduct->title }}">
                             @endif
                             
-                            {{-- Overlay dengan info produk --}}
+                            {{-- Overlay info produk --}}
                             <div class="featured-overlay">
                                 <div class="featured-content">
                                     <h4>{{ $featuredProduct->title }}</h4>

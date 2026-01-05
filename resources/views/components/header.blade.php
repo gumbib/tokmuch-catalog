@@ -5,6 +5,12 @@
                  alt="TOKMUCH Logo" 
                  class="logo-image original">
         </a>
+
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>

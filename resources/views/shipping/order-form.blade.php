@@ -4,61 +4,218 @@
 
 @section('styles')
 <style>
-    .courier-option.disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        background-color: #333; /* Gelapkan sedikit */
-    }
-    
-    .courier-option.disabled label {
-        cursor: not-allowed;
-        border-color: #555;
-        color: #777;
-    }
-    
-    /* ... CSS LAINNYA BIARKAN SAMA ... */
-    
-    /* CSS styling form (Saya persingkat disini agar tidak kepanjangan, 
-       pakai style yang lama saja, tambahkan class .disabled di atas) */
-       
+    /* --- CSS UTAMA FORM --- */
     .order-container { max-width: 900px; margin: 3rem auto; padding: 0 2rem; }
-    .order-card { background-color: var(--bg-elevated); border-radius: 20px; padding: 2.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.3); border: 1px solid rgba(255, 111, 97, 0.2); }
-    .product-summary { background: linear-gradient(135deg, rgba(255, 111, 97, 0.1) 0%, rgba(218, 165, 32, 0.1) 100%); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; border: 1px solid rgba(255, 111, 97, 0.3); }
-    .product-summary h2 { color: var(--accent-coral); font-size: 1.5rem; margin-bottom: 0.5rem; }
-    .product-summary .price { color: var(--accent-yellow); font-size: 1.8rem; font-weight: bold; }
+    
+    .order-card { 
+        background-color: var(--bg-elevated); 
+        border-radius: 20px; 
+        padding: 2.5rem; 
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3); 
+        border: 1px solid rgba(255, 111, 97, 0.2); 
+    }
+
+    /* --- GLOBAL ICON RESET --- */
+    .bx {
+        font-size: 1.2rem;
+        vertical-align: middle;
+        line-height: 1;
+    }
+
+    /* Product Summary */
+    .product-summary { 
+        background: linear-gradient(135deg, rgba(255, 111, 97, 0.1) 0%, rgba(218, 165, 32, 0.1) 100%); 
+        padding: 1.5rem; 
+        border-radius: 15px; 
+        margin-bottom: 2rem; 
+        border: 1px solid rgba(255, 111, 97, 0.3); 
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .product-summary h2 { color: var(--accent-coral); font-size: 1.5rem; margin: 0; }
+    .product-summary .price { color: var(--accent-yellow); font-size: 1.5rem; font-weight: bold; }
+
+    /* Form Elements */
     .form-section { margin-bottom: 2rem; }
-    .form-section h3 { color: var(--text-primary); font-size: 1.3rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid rgba(255, 111, 97, 0.3); }
+    
+    /* JUDUL SECTION */
+    .form-section h3 { 
+        color: var(--text-primary); 
+        font-size: 1.3rem; 
+        margin-bottom: 1rem; 
+        padding-bottom: 0.5rem; 
+        border-bottom: 2px solid rgba(255, 111, 97, 0.3);
+        
+        display: flex; 
+        align-items: center; 
+        gap: 10px; 
+    }
+
+    .form-section h3 .bx {
+        font-size: 1.6rem;
+    }
+    
     .form-group { margin-bottom: 1.5rem; }
     .form-group label { display: block; color: var(--text-secondary); font-weight: 500; margin-bottom: 0.5rem; font-size: 0.95rem; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.8rem 1rem; background-color: var(--bg-dark); border: 1px solid rgba(255, 111, 97, 0.3); border-radius: 8px; color: var(--text-primary); font-size: 1rem; transition: all 0.3s ease; }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent-coral); box-shadow: 0 0 0 3px rgba(255, 111, 97, 0.1); }
-    .courier-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem; }
+    
+    .form-group input, .form-group select, .form-group textarea { 
+        width: 100%; padding: 0.9rem 1rem; background-color: var(--bg-dark); 
+        border: 1px solid rgba(255, 111, 97, 0.3); border-radius: 10px; 
+        color: var(--text-primary); font-size: 1rem; transition: all 0.3s ease; 
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { 
+        outline: none; border-color: var(--accent-coral); 
+        box-shadow: 0 0 0 3px rgba(255, 111, 97, 0.1); 
+    }
+
+    .form-group select:disabled,
+    .form-group input:disabled {
+        background-color: #1a1a1a; border-color: #444; color: #666; cursor: not-allowed; opacity: 0.7;             
+    }
+
+    /* --- COURIER SECTION --- */
+    .courier-wrapper {
+        background-color: var(--bg-dark);
+        border: 1px solid rgba(255, 111, 97, 0.2);
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .courier-options { 
+        display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 1.5rem; 
+    }
+    
     .courier-option { position: relative; }
     .courier-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
-    .courier-option label { display: block; padding: 1rem; background-color: var(--bg-dark); border: 2px solid rgba(255, 111, 97, 0.3); border-radius: 10px; text-align: center; cursor: pointer; transition: all 0.3s ease; font-weight: bold; color: var(--text-secondary); }
-    .courier-option input[type="radio"]:checked + label { border-color: var(--accent-coral); background: linear-gradient(135deg, rgba(255, 111, 97, 0.2) 0%, rgba(255, 69, 0, 0.2) 100%); color: var(--accent-coral); }
-    .courier-option label:hover { border-color: var(--accent-coral); }
-    #shipping-results { margin-top: 1.5rem; }
-    .shipping-option { background-color: var(--bg-dark); padding: 1rem; border-radius: 10px; margin-bottom: 1rem; border: 2px solid rgba(255, 111, 97, 0.3); cursor: pointer; transition: all 0.3s ease; }
-    .shipping-option:hover { border-color: var(--accent-coral); transform: translateX(5px); }
-    .shipping-option.selected { border-color: var(--accent-coral); background: linear-gradient(135deg, rgba(255, 111, 97, 0.15) 0%, rgba(255, 69, 0, 0.15) 100%); }
-    .shipping-option input[type="radio"] { margin-right: 1rem; }
-    .shipping-details { display: flex; justify-content: space-between; align-items: center; }
-    .shipping-info { flex: 1; }
-    .shipping-service { color: var(--accent-coral); font-weight: bold; font-size: 1.1rem; }
-    .shipping-etd { color: var(--text-secondary); font-size: 0.9rem; }
-    .shipping-cost { color: var(--accent-yellow); font-size: 1.3rem; font-weight: bold; }
-    .order-summary { background: linear-gradient(135deg, rgba(218, 165, 32, 0.15) 0%, rgba(255, 111, 97, 0.15) 100%); padding: 1.5rem; border-radius: 15px; margin-top: 2rem; border: 1px solid rgba(218, 165, 32, 0.4); }
-    .summary-row { display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: var(--text-secondary); font-size: 1rem; }
-    .summary-row.total { font-size: 1.5rem; font-weight: bold; color: var(--accent-yellow); padding-top: 0.8rem; border-top: 2px solid rgba(218, 165, 32, 0.4); }
-    .submit-button { width: 100%; padding: 1.2rem; background: linear-gradient(135deg, var(--accent-coral) 0%, var(--accent-orange) 100%); color: var(--bg-dark); border: none; border-radius: 10px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: all 0.3s ease; margin-top: 1.5rem; }
-    .submit-button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255, 111, 97, 0.4); }
-    .submit-button:disabled { opacity: 0.5; cursor: not-allowed; }
+    
+    .courier-option label { 
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        padding: 1.2rem; 
+        background: linear-gradient(135deg, rgba(255, 111, 97, 0.1) 0%, rgba(255, 69, 0, 0.05) 100%);
+        border: 2px solid var(--accent-coral); 
+        border-radius: 12px; 
+        cursor: pointer; 
+        font-weight: bold; 
+        color: var(--accent-coral);
+        font-size: 1.1rem;
+        box-shadow: 0 4px 15px rgba(255, 111, 97, 0.1);
+    }
+    
+    /* TOMBOL JNE: */
+    .courier-option label span {
+        display: flex;          /* Span di dalamnya flex juga */
+        align-items: center;    /* Sejajar vertikal */
+        gap: 10px;              /* Jarak icon ke teks */
+    }
+
+    /* Icon khusus di tombol JNE */
+    .courier-option .bx {
+        font-size: 1.5rem;
+    }
+
+    /* --- TOMBOL HITUNG ONGKIR --- */
+    .btn-calculate {
+        width: 100%;
+        padding: 1rem;
+        background: linear-gradient(90deg, var(--bg-elevated) 0%, var(--bg-dark) 100%);
+        border: 2px dashed var(--accent-coral);
+        color: var(--accent-coral);
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn-calculate:hover:not(:disabled) {
+        background: rgba(255, 111, 97, 0.1);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .btn-calculate:disabled {
+        opacity: 0.5; cursor: not-allowed; border-color: #555; color: #777;
+    }
+
+    /* Payment Options Style */
+    .payment-option .bx {
+        font-size: 2rem; /* Icon tombol pembayaran (Transfer/COD) tetap besar */
+        color: var(--accent-coral);
+        margin-bottom: 8px;
+        display: block; 
+        text-align: center;
+        margin-right: 0;
+    }
+    
+    #bankInfo p .bx {
+        font-size: 1.2rem;
+        margin-right: 5px;
+        transform: translateY(-2px);
+    }
+
+    /* --- TOMBOL SUBMIT (WHATSAPP) --- */
+    .submit-button { 
+        width: 100%; padding: 1.2rem; 
+        background: linear-gradient(135deg, var(--accent-coral) 0%, var(--accent-orange) 100%); 
+        color: white; border: none; border-radius: 12px; 
+        font-size: 1.2rem; font-weight: bold; cursor: pointer; 
+        transition: all 0.3s ease; margin-top: 1.5rem; 
+        box-shadow: 0 8px 25px rgba(255, 111, 97, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+    .submit-button:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(255, 111, 97, 0.5); }
+    .submit-button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; background: #444; }
+
+    /* Shipping Results */
+    .shipping-option { 
+        background-color: var(--bg-dark); padding: 1.2rem; border-radius: 12px; 
+        margin-bottom: 1rem; border: 2px solid rgba(255, 111, 97, 0.3); 
+        cursor: pointer; transition: all 0.3s ease; 
+    }
+    .shipping-option:hover { border-color: var(--accent-coral); background-color: rgba(255, 111, 97, 0.05); }
+    .shipping-option.selected { 
+        border-color: var(--accent-coral); 
+        background: linear-gradient(135deg, rgba(255, 111, 97, 0.2) 0%, rgba(255, 69, 0, 0.2) 100%); 
+        box-shadow: 0 0 15px rgba(255, 111, 97, 0.2);
+    }
+    
+    /* Order Summary */
+    .order-summary { 
+        background: rgba(0, 0, 0, 0.3); padding: 1.5rem; border-radius: 15px; 
+        margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.1); 
+    }
+    .summary-row { display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: #ccc; font-size: 1rem; }
+    .summary-row.total { 
+        font-size: 1.5rem; font-weight: bold; color: var(--accent-yellow); 
+        padding-top: 1rem; border-top: 1px dashed rgba(255, 255, 255, 0.2); margin-top: 1rem; 
+    }
+
     .loading-indicator { text-align: center; padding: 2rem; color: var(--accent-coral); display: none; }
     .loading-indicator.show { display: block; }
-    .error-message { background-color: rgba(255, 69, 0, 0.2); color: var(--accent-orange); padding: 1rem; border-radius: 8px; margin-top: 1rem; border: 1px solid var(--accent-orange); display: none; }
+    
+    .error-message { 
+        background-color: rgba(220, 38, 38, 0.2); color: #ff6b6b; 
+        padding: 1rem; border-radius: 8px; margin-top: 1rem; 
+        border: 1px solid #ff6b6b; display: none; text-align: center;
+    }
     .error-message.show { display: block; }
-    @media (max-width: 768px) { .courier-options { grid-template-columns: 1fr; } }
+
+    @media (max-width: 768px) { .order-container { padding: 0 1rem; } .order-card { padding: 1.5rem; } }
 </style>
 @endsection
 
@@ -67,30 +224,30 @@
     <div class="order-card">
         {{-- Product Summary --}}
         <div class="product-summary">
-            <h2>{{ $product->title }}</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">{{ $product->description }}</p>
+            <div>
+                <small style="color: #aaa; text-transform: uppercase; letter-spacing: 1px;">Produk</small>
+                <h2>{{ $product->title }}</h2>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 5px;">{{ Str::limit($product->description, 60) }}</p>
+            </div>
             <div class="price">{{ $product->formatted_price }}</div>
         </div>
 
         {{-- Order Form --}}
-        <form id="orderForm" action="{{ route('order.submit') }}" method="POST">
+        <form id="orderForm" action="{{ route('order.submit') }}" method="POST" autocomplete="off">
             @csrf
             <input type="hidden" name="product_id" value="{{ $product->id }}">
             
             {{-- Data Pelanggan --}}
             <div class="form-section">
-                <h3>📝 Data Penerima</h3>
-                
+                <h3><i class='bx bxs-user-detail'></i> Data Penerima</h3>
                 <div class="form-group">
                     <label for="customer_name">Nama Lengkap *</label>
-                    <input type="text" id="customer_name" name="customer_name" required placeholder="Masukkan nama lengkap">
+                    <input type="text" id="customer_name" name="customer_name" required placeholder="Contoh: Budi Santoso">
                 </div>
-                
                 <div class="form-group">
                     <label for="customer_phone">Nomor WhatsApp *</label>
                     <input type="tel" id="customer_phone" name="customer_phone" required placeholder="08xxxxxxxxxx">
                 </div>
-                
                 <div class="form-group">
                     <label for="customer_email">Email (Opsional)</label>
                     <input type="email" id="customer_email" name="customer_email" placeholder="email@example.com">
@@ -99,100 +256,130 @@
 
             {{-- Alamat Pengiriman --}}
             <div class="form-section">
-                <h3>📍 Alamat Pengiriman</h3>
-                
-                <div class="form-group">
-                    <label for="address">Alamat Lengkap *</label>
-                    <textarea id="address" name="address" rows="3" required placeholder="Jl. Contoh No. 123, RT/RW, Kelurahan"></textarea>
-                </div>
-                
+                <h3><i class='bx bxs-map'></i> Alamat Pengiriman</h3>
                 <div class="form-group">
                     <label for="province">Provinsi *</label>
                     <select id="province" name="province" required>
                         <option value="">Pilih Provinsi</option>
                     </select>
                 </div>
-                
                 <div class="form-group">
                     <label for="city">Kota/Kabupaten *</label>
                     <select id="city" name="city" required disabled>
                         <option value="">Pilih provinsi terlebih dahulu</option>
                     </select>
                 </div>
-                
                 <div class="form-group">
                     <label for="subdistrict">Kecamatan *</label>
                     <select id="subdistrict" name="subdistrict" required disabled>
                         <option value="">Pilih kota terlebih dahulu</option>
                     </select>
                 </div>
-                
                 <div class="form-group">
                     <label for="postal_code">Kode Pos (Opsional)</label>
-                    <input type="text" id="postal_code" name="postal_code" placeholder="55xxx">
+                    <input type="text" id="postal_code" name="postal_code" placeholder="Contoh: 55181">
+                </div>
+                <div class="form-group">
+                    <label for="address">Jalan / Patokan *</label>
+                    <textarea id="address" name="address" rows="2" required placeholder="Nama Jalan, No Rumah, RT/RW, Patokan"></textarea>
                 </div>
             </div>
 
-            {{-- Pilih Kurir (DIMODIFIKASI: Disable TIKI & POS) --}}
+            {{-- Pilih Kurir --}}
             <div class="form-section">
-                <h3>🚚 Pilih Ekspedisi</h3>
+                <h3><i class='bx bxs-truck'></i> Pengiriman</h3>
                 
-                <div class="courier-options">
-                    <div class="courier-option">
-                        <input type="radio" id="courier_jne" name="courier" value="jne" checked>
-                        <label for="courier_jne">JNE</label>
+                <div class="courier-wrapper">
+                    <div class="courier-options">
+                        <div class="courier-option">
+                            <input type="radio" id="courier_jne" name="courier" value="jne" checked>
+                            <label for="courier_jne">
+                                {{-- GANTI EMOJI DENGAN ICON TRUCK --}}
+                                <span><i class='bx bxs-package'></i> JNE (Jalur Nugraha Ekakurir)</span>
+                            </label>
+                        </div>
                     </div>
                     
-                    <div class="courier-option disabled">
-                        <input type="radio" id="courier_tiki" name="courier" value="tiki" disabled>
-                        <label for="courier_tiki" title="Tidak tersedia di paket Starter">TIKI (Premium)</label>
+                    <button type="button" id="calculateShipping" class="btn-calculate" disabled>
+                        <i class='bx bx-search-alt'></i> Cek Ongkos Kirim
+                    </button>
+
+                    <div class="loading-indicator" id="loadingIndicator">
+                        <p><i class='bx bx-loader-alt bx-spin'></i> Sedang menghubungi JNE...</p>
                     </div>
-                    
-                    <div class="courier-option disabled">
-                        <input type="radio" id="courier_pos" name="courier" value="pos" disabled>
-                        <label for="courier_pos" title="Tidak tersedia di paket Starter">POS (Premium)</label>
-                    </div>
+
+                    <div class="error-message" id="errorMessage"></div>
+
+                    <div id="shipping-results"></div>
                 </div>
+            </div>
+
+            {{-- Metode Pembayaran --}}
+            <div class="form-section">
+                <h3><i class='bx bxs-wallet'></i> Metode Pembayaran</h3>
                 
-                <button type="button" id="calculateShipping" class="cta-button" disabled style="margin-top: 1rem;">
-                    Hitung Ongkir
-                </button>
+                <div class="payment-options" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <label class="payment-option" style="cursor: pointer; border: 1px solid rgba(255, 111, 97, 0.3); padding: 1rem; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-dark);">
+                        <input type="radio" name="payment_method" value="bank_transfer" checked onchange="togglePaymentInfo()" style="margin-bottom: 10px;">
+                        {{-- ICON BANK --}}
+                        <i class='bx bxs-bank'></i>
+                        <span style="font-weight: bold;">Transfer Bank</span>
+                    </label>
 
-                <div class="loading-indicator" id="loadingIndicator">
-                    <p>⏳ Sedang menghitung ongkir terbaik untuk Anda...</p>
+                    <label class="payment-option" style="cursor: pointer; border: 1px solid rgba(255, 111, 97, 0.3); padding: 1rem; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-dark);">
+                        <input type="radio" name="payment_method" value="cod" onchange="togglePaymentInfo()" style="margin-bottom: 10px;">
+                        {{-- ICON COD / RUMAH --}}
+                        <i class='bx bxs-home-smile'></i>
+                        <span style="font-weight: bold;">Bayar di Tempat</span>
+                    </label>
                 </div>
 
-                <div class="error-message" id="errorMessage"></div>
+                <div id="bankInfo" style="margin-top: 1rem; padding: 1rem; background: rgba(255, 111, 97, 0.1); border-radius: 8px; border: 1px dashed var(--accent-coral); display: flex; align-items: center; justify-content: space-between;">
+                    <div style="flex: 1;">
+                        <p style="margin:0; font-weight: bold;"><i class='bx bx-credit-card'></i> Bank BNI</p>
+                        <p style="margin:0; font-size: 1.2rem; font-family: monospace;">123-456-7890</p>
+                        <p style="margin:0;">a.n Gumbib Watterson</p>
+                        <small style="display:block; margin-top:5px; color: #aaa;">*Silakan kirim bukti transfer ke WhatsApp setelah order.</small>
+                    </div>
 
-                <div id="shipping-results"></div>
+                    <div style="margin-left: 15px;">
+                        <img src="{{ asset('images/bank.png') }}" 
+                            alt="Logo BNI" 
+                            style="height: 140px; width: auto; display: block; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));">
+                    </div>
+                </div>
+
+                <div id="codInfo" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.2); border-radius: 8px;">
+                    <p style="margin:0;"><i class='bx bxs-info-circle'></i> Pastikan ada orang di rumah dan uang pas saat kurir datang.</p>
+                </div>
             </div>
 
             {{-- Catatan Tambahan --}}
             <div class="form-section">
-                <h3>💬 Catatan Tambahan (Opsional)</h3>
+                <h3><i class='bx bxs-note'></i> Catatan (Opsional)</h3>
                 <div class="form-group">
-                    <textarea id="notes" name="notes" rows="3" placeholder="Contoh: Tolong packing rapi, saya ingin hadiah untuk teman"></textarea>
+                    <textarea id="notes" name="notes" rows="2" placeholder="Pesan untuk penjual..."></textarea>
                 </div>
             </div>
 
             {{-- Order Summary --}}
             <div class="order-summary">
                 <div class="summary-row">
-                    <span>Harga Produk:</span>
+                    <span>Harga Produk</span>
                     <span id="product-price">{{ $product->formatted_price }}</span>
                 </div>
                 <div class="summary-row">
-                    <span>Ongkir:</span>
+                    <span>Ongkos Kirim</span>
                     <span id="shipping-price">Rp 0</span>
                 </div>
                 <div class="summary-row total">
-                    <span>TOTAL:</span>
+                    <span>TOTAL BAYAR</span>
                     <span id="total-price">{{ $product->formatted_price }}</span>
                 </div>
             </div>
 
             <button type="submit" class="submit-button" id="submitButton" disabled>
-                Lanjut ke WhatsApp
+                <i class='bx bxl-whatsapp'></i> Lanjut ke WhatsApp
             </button>
         </form>
     </div>
@@ -473,5 +660,19 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => { errorMessage.classList.remove('show'); }, 5000);
     }
 });
+
+    function togglePaymentInfo() {
+        const method = document.querySelector('input[name="payment_method"]:checked').value;
+        const bankInfo = document.getElementById('bankInfo');
+        const codInfo = document.getElementById('codInfo');
+
+        if (method === 'bank_transfer') {
+            bankInfo.style.display = 'block';
+            codInfo.style.display = 'none';
+        } else {
+            bankInfo.style.display = 'none';
+            codInfo.style.display = 'block';
+        }
+    }
 </script>
 @endsection

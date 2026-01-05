@@ -1,3 +1,3 @@
 <footer>
-    <p>&copy; {{ date('Y') }} TOKMUCH. All Rights Reserved. | Kreativitas Tanpa Batas</p>
+    <p>&copy; {{ date('Y') }} TOKMUCH | Kreativitas Tanpa Batas</p>
 </footer>

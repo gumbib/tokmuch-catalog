@@ -35,6 +35,7 @@ class CustomerAddress extends Model
         'shipping_courier',
         'shipping_service',
         'shipping_cost',
+        'payment_method',
         'shipping_etd',
         'total_amount',
         'notes',

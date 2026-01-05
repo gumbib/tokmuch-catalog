@@ -21,8 +21,6 @@ class ProductSeeder extends Seeder
         // Produk: Sketsa Wajah Custom
         // ========================================
         $lukisPensil = Category::where('slug', 'lukis-pensil')->first();
-        
-        // Kita buat multiple sample images untuk produk Sketsa Wajah Custom
         $sketsaWajahSamples = [
             [
                 'title' => 'Sketsa Wajah Custom',
@@ -60,24 +58,6 @@ class ProductSeeder extends Seeder
                 'is_featured' => false,
                 'order' => 4
             ],
-            [
-                'title' => 'Sketsa Wajah Custom',
-                'description' => '',
-                'price' => 150000,
-                'image_icon' => 'products/sketsa-1.jpeg',
-                'gradient_color' => 'linear-gradient(135deg, #4ECDC4 0%, #A8DADC 100%)',
-                'is_featured' => false,
-                'order' => 5
-            ],
-            [
-                'title' => 'Sketsa Wajah Custom',
-                'description' => '',
-                'price' => 150000,
-                'image_icon' => 'products/sketsa-3.jpeg',
-                'gradient_color' => 'linear-gradient(135deg, #4ECDC4 0%, #A8DADC 100%)',
-                'is_featured' => false,
-                'order' => 6
-            ]
         ];
 
         foreach ($sketsaWajahSamples as $sample) {
@@ -85,8 +65,38 @@ class ProductSeeder extends Seeder
         }
 
         // ========================================
+        // KATEGORI: LUKIS Acrylic
+        // Produk: Lukisan acrylic
+        // ========================================
+        $lukisAcrylic = Category::where('slug', 'lukis-acrylic')->first();
+        $acrylicSamples = [
+            [
+                'title' => 'Lukis Acrylic',
+                'description' => '',
+                'price' => 100000,
+                'image_icon' => 'products/sketsa-3.jpeg',
+                'gradient_color' => 'linear-gradient(135deg, #4ECDC4 0%, #A8DADC 100%)',
+                'is_featured' => true,
+                'order' => 1
+            ],
+            [
+                'title' => 'Lukis Acrylic',
+                'description' => '',
+                'price' => 100000,
+                'image_icon' => 'products/sketsa-1.jpeg',
+                'gradient_color' => 'linear-gradient(135deg, #4ECDC4 0%, #A8DADC 100%)',
+                'is_featured' => false,
+                'order' => 2
+            ],
+        ];
+
+        foreach ($acrylicSamples as $sample) {
+            Product::create(array_merge($sample, ['category_id' => $lukisAcrylic->id]));
+        }
+
+        // ========================================
         // KATEGORI: CUSTOM JAKET
-        // Produk: Hoodie Design Eksklusif
+        // Produk: Jaket Design Eksklusif
         // ========================================
         $customJaket = Category::where('slug', 'custom-jaket')->first();
         

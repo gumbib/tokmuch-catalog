@@ -48,19 +48,13 @@ class ShippingController extends Controller
                 return null;
             }
 
-            // Log untuk debugging - hapus di production
-            Log::info('Calling RajaOngkir API: ' . $this->baseUrl . $endpoint);
-
-            // Gunakan Laravel HTTP Client untuk request ke API
+            // Laravel HTTP Client untuk request ke API
             $response = Http::withHeaders([
-                'key' => $this->apiKey, // Authentication menggunakan API key
+                'key' => $this->apiKey,
                 'Content-Type' => 'application/json'
-            ])->timeout(30) // Timeout 30 detik
-              ->get($this->baseUrl . $endpoint);
-
-            // Log response untuk debugging - hapus di production
-            Log::info('RajaOngkir Response Status: ' . $response->status());
-            Log::info('RajaOngkir Response Body: ' . $response->body());
+            ])
+            ->timeout(30)
+            ->get($this->baseUrl . $endpoint);
 
             // Cek apakah request berhasil (status code 200)
             if ($response->successful()) {
@@ -98,9 +92,10 @@ class ShippingController extends Controller
             $response = Http::withHeaders([
                 'key' => $this->apiKey,
                 // 'Content-Type' => 'application/json'
-            ])->timeout(30)
-              ->asForm()
-              ->post($this->baseUrl . $endpoint, $data);
+            ])
+            ->timeout(30)
+            ->asForm()
+            ->post($this->baseUrl . $endpoint, $data);
 
             Log::info('RajaOngkir Response Status: ' . $response->status());
             Log::info('RajaOngkir Response Body: ' . $response->body());
@@ -341,6 +336,7 @@ class ShippingController extends Controller
             'postal_code' => 'nullable|string',
             'shipping_courier' => 'required|string',
             'shipping_service' => 'required|string',
+            'payment_method' => 'required|in:bank_transfer,cod',
             'shipping_cost' => 'required|numeric',
             'shipping_etd' => 'required|string',
             'notes' => 'nullable|string',
@@ -374,6 +370,7 @@ class ShippingController extends Controller
             'shipping_courier' => $validated['shipping_courier'],
             'shipping_service' => $validated['shipping_service'],
             'shipping_cost' => $shippingCost,
+            'payment_method' => $validated['payment_method'],
             'shipping_etd' => $validated['shipping_etd'],
             'total_amount' => $totalAmount,
             'notes' => $validated['notes'],
@@ -418,6 +415,17 @@ class ShippingController extends Controller
             $message .= "• {$order->shipping_courier} - {$order->shipping_service}\n";
             $message .= "• Rp " . number_format($order->shipping_cost, 0, ',', '.') . "\n";
             $message .= "• Estimasi: {$order->shipping_etd} hari\n\n";
+
+            $message .= "*Pembayaran:*\n";
+            if ($order->payment_method == 'cod') {
+                $message .= "• Metode: COD (Bayar di Tempat)\n";
+                $message .= "• _Mohon diproses, saya akan bayar tunai ke kurir._\n";
+            } else {
+                $message .= "• Metode: Transfer Bank\n";
+                $message .= "• Bank BNI: 123-456-7890 (Gumbib)\n"; // Sesuaikan nama/rek kamu
+                $message .= "• _Saya akan segera mengirimkan bukti transfer._\n";
+            }
+            $message .= "\n";
             
             if ($order->notes) {
                 $message .= "*Catatan:*\n{$order->notes}\n\n";
