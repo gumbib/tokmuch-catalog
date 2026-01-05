@@ -419,10 +419,10 @@ class ShippingController extends Controller
             $message .= "*Pembayaran:*\n";
             if ($order->payment_method == 'cod') {
                 $message .= "• Metode: COD (Bayar di Tempat)\n";
-                $message .= "• _Mohon diproses, saya akan bayar tunai ke kurir._\n";
+                $message .= "• _Mohon diproses kak, saya akan bayar tunai ke kurir._\n";
             } else {
                 $message .= "• Metode: Transfer Bank\n";
-                $message .= "• Bank BNI: 123-456-7890 (Gumbib)\n"; // Sesuaikan nama/rek kamu
+                $message .= "• Bank BNI: 1551556938 (Yulinto Wibowo)\n"; // Sesuaikan nama/rek kamu
                 $message .= "• _Saya akan segera mengirimkan bukti transfer._\n";
             }
             $message .= "\n";
@@ -433,7 +433,7 @@ class ShippingController extends Controller
             
             // PERBAIKAN DISINI: Gunakan $order->total_amount
             $message .= "*TOTAL: Rp " . number_format($order->total_amount, 0, ',', '.') . "*\n\n";
-            $message .= "Mohon konfirmasi pesanan ini. Terima kasih! 🙏";
+            $message .= "Mohon konfirmasi pesanannya ya kak. Terima kasih! 🙏";
             
             return $message;
         }

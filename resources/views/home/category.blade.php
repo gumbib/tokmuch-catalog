@@ -130,7 +130,7 @@
 
     .order-btn-large {
         background: linear-gradient(135deg, var(--accent-coral) 0%, var(--accent-orange) 100%);
-        color: black;
+        color: var(--bg-dark);
         padding: 1rem 2.5rem;
         border-radius: 50px;
         text-decoration: none;
@@ -144,7 +144,7 @@
     }
 
     .order-btn-large:hover {
-        background-color: var(--neutral-light);
+        background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-coral) 100%) !important;
         color: white;
         transform: translateY(-3px);
         box-shadow: 0 6px 20px rgba(255, 69, 0, 0.6);
@@ -197,7 +197,7 @@
 
     .back-link:hover {
         background-color: var(--accent-coral);
-        color: black;
+        color: var(--bg-dark);
         border-color: var(--accent-coral);
         transform: translateX(-5px); /* Geser sedikit ke kiri */
         box-shadow: 0 6px 15px rgba(255, 111, 97, 0.3);
@@ -205,6 +205,15 @@
     
     .back-link i {
         font-size: 1.2rem;
+    }
+
+    /* Footer */
+    footer {
+        background-color: var(--primary-purple) !important;
+        color: var(--text-secondary);
+        text-align: center;
+        padding: 2rem;
+        border-top: 1px solid rgba(255, 111, 97, 0.2);
     }
 
     /* Responsive untuk HP */

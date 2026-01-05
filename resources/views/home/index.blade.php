@@ -456,6 +456,26 @@
             font-size: 0.85rem;
             padding: 0.6rem 1rem;
         }
+
+        .whatsapp-button {
+            padding: 0.8rem 1.5rem !important; 
+            font-size: 0.80rem !important;
+            gap: 8px;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        /* Kecilkan juga icon WA di dalamnya */
+        .whatsapp-button svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Sesuaikan teks ajakan chat di atasnya biar imbang */
+        .contact-content p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
     }
     
     .item-price {
@@ -551,7 +571,7 @@
 
     /* Footer */
     footer {
-        background-color: #0A0A0A;
+        background-color: var(--primary-purple) !important;
         color: var(--text-secondary);
         text-align: center;
         padding: 2rem;

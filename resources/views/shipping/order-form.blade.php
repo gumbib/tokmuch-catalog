@@ -169,7 +169,7 @@
 
     .back-link:hover {
         background-color: var(--accent-coral);
-        color: black; /* Teks jadi hitam saat hover */
+        color: var(--bg-dark);
         border-color: var(--accent-coral);
         transform: translateX(-5px);
         box-shadow: 0 6px 15px rgba(255, 111, 97, 0.3);
@@ -216,8 +216,18 @@
         justify-content: center;
         gap: 10px;
     }
-    .submit-button:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(255, 111, 97, 0.5); }
-    .submit-button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; background: #444; }
+
+    /* Footer */
+    footer {
+        background-color: var(--primary-purple) !important;
+        color: var(--text-secondary);
+        text-align: center;
+        padding: 2rem;
+        border-top: 1px solid rgba(255, 111, 97, 0.2);
+    }
+    
+    .submit-button:hover { transform: translateY(-3px); background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-coral) 100%); color: var(--bg-dark); box-shadow: 0 12px 30px rgba(255, 111, 97, 0.5); }
+    .submit-button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; background: #444; color: white; }
 
     /* Shipping Results */
     .shipping-option { 
@@ -261,7 +271,6 @@
     <div class="order-container">
         {{-- TOMBOL KEMBALI (BARU) --}}
         <div class="back-link-wrapper">
-            {{-- Link otomatis kembali ke kategori produk tersebut --}}
             <a href="{{ route('category.show', $product->category->slug) }}" class="back-link">
                 <i class='bx bx-arrow-back'></i> Kembali
             </a>
@@ -340,7 +349,6 @@
                         <div class="courier-option">
                             <input type="radio" id="courier_jne" name="courier" value="jne" checked>
                             <label for="courier_jne">
-                                {{-- GANTI EMOJI DENGAN ICON TRUCK --}}
                                 <span><i class='bx bxs-package'></i> JNE (Jalur Nugraha Ekakurir)</span>
                             </label>
                         </div>
@@ -367,24 +375,22 @@
                 <div class="payment-options" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                     <label class="payment-option" style="cursor: pointer; border: 1px solid rgba(255, 111, 97, 0.3); padding: 1rem; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-dark);">
                         <input type="radio" name="payment_method" value="bank_transfer" checked onchange="togglePaymentInfo()" style="margin-bottom: 10px;">
-                        {{-- ICON BANK --}}
                         <i class='bx bxs-bank'></i>
                         <span style="font-weight: bold;">Transfer Bank</span>
                     </label>
 
                     <label class="payment-option" style="cursor: pointer; border: 1px solid rgba(255, 111, 97, 0.3); padding: 1rem; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-dark);">
                         <input type="radio" name="payment_method" value="cod" onchange="togglePaymentInfo()" style="margin-bottom: 10px;">
-                        {{-- ICON COD / RUMAH --}}
                         <i class='bx bxs-home-smile'></i>
-                        <span style="font-weight: bold;">Bayar di Tempat</span>
+                        <span style="font-weight: bold;">Bayar di Tempat (COD)</span>
                     </label>
                 </div>
 
                 <div id="bankInfo" style="margin-top: 1rem; padding: 1rem; background: rgba(255, 111, 97, 0.1); border-radius: 8px; border: 1px dashed var(--accent-coral); display: flex; align-items: center; justify-content: space-between;">
                     <div style="flex: 1;">
                         <p style="margin:0; font-weight: bold;"><i class='bx bx-credit-card'></i> Bank BNI</p>
-                        <p style="margin:0; font-size: 1.2rem; font-family: monospace;">123-456-7890</p>
-                        <p style="margin:0;">a.n Gumbib Watterson</p>
+                        <p style="margin:0; font-size: 1.2rem; font-family: monospace;">1551556938</p>
+                        <p style="margin:0;">a.n Yulianto Wibowo</p>
                         <small style="display:block; margin-top:5px; color: #aaa;">*Silakan kirim bukti transfer ke WhatsApp setelah order.</small>
                     </div>
 
