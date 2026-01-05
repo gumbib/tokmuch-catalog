@@ -209,6 +209,38 @@
         border-radius: 2px;
     }
 
+    /* Wrapper Grid */
+    .home-gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 Kolom di Desktop */
+        gap: 2.5rem; /* Jarak antar kotak */
+        width: 100%;
+    }
+
+    /* Agar Card Presisi Tinggi-nya sama */
+    .category-section {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .featured-card-link {
+        flex-grow: 1; /* Card akan mengisi sisa ruang agar tinggi rata */
+        margin-bottom: 0; /* Hapus margin lama, kita pakai gap grid */
+        height: 100%;
+    }
+
+    .featured-card {
+        height: 100%; /* Pastikan card full height */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .featured-image {
+        flex-grow: 1; /* Gambar mengisi ruang */
+        height: 350px; /* Tinggi sedikit dikurangi biar proporsional di grid */
+    }
+
     .category-header {
         display: flex;
         align-items: center;
@@ -356,21 +388,73 @@
 
     /* Responsive untuk mobile */
     @media (max-width: 768px) {
+        .home-gallery-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        /* 2. HEADER KATEGORI (Solusi Font Kegedean) */
+        .category-header {
+            flex-direction: column; /* Ubah jadi tumpuk atas-bawah biar lega */
+            align-items: flex-start; /* Rata kiri */
+            gap: 0.8rem; /* Beri jarak antara judul dan harga */
+            padding: 1rem; /* Padding lebih kecil */
+        }
+
+        .category-header h3 {
+            font-size: 1.3rem; /* Kecilin font judul (sebelumnya 1.8rem) */
+            line-height: 1.2;
+        }
+        
+        /* Kecilin icon di sebelahnya juga */
+        .category-header h3 i {
+            font-size: 1.3rem !important; 
+            transform: translateY(-2px) !important;
+        }
+
+        .price-range {
+            font-size: 0.85rem; /* Kecilin font harga */
+            padding: 0.4rem 1rem;
+            align-self: flex-start; /* Pastikan badge harga di kiri */
+        }
+
+        /* 3. CARD PRODUK (Penyesuaian Mobile) */
         .featured-image {
-            height: 250px;
+            height: 220px; /* Gambar tidak perlu setinggi desktop */
         }
         
-        .featured-content h4 {
-            font-size: 1.3rem;
+        .featured-content {
+            padding: 1.5rem 1rem; /* Padding atas-bawah 1.5, kiri-kanan 1 biar ga terlalu mepet */
+            width: 100%; /* Pastikan mengambil lebar penuh */
+            text-align: center; 
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Ini kuncinya biar tombol 'Lihat Semua' juga di tengah */
         }
         
+        .featured-content h4,
         .featured-content p {
-            font-size: 0.95rem;
+            font-size: 1.1rem;
+            width: 100%;
+            max-width: 600px; /* Batasi lebar teks biar ga terlalu melebar di HP landscape */
+        }
+        
+        .featured-price {
+            font-size: 0.8rem;
         }
         
         .featured-overlay {
-            opacity: 1; /* Selalu tampil di mobile karena tidak ada hover */
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
+            opacity: 1;
+            /* Gradient sedikit lebih gelap biar teks lebih terbaca */
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 10%, rgba(0,0,0,0.6) 70%, transparent 100%);
+            /* Pastikan container overlay sendiri rata tengah secara horizontal */
+            justify-content: center;
+        }
+        
+        /* Tombol 'Lihat Semua' di HP dikecilin dikit */
+        .view-more-badge {
+            font-size: 0.85rem;
+            padding: 0.6rem 1rem;
         }
     }
     
@@ -559,7 +643,7 @@
             </div>
             <div class="about-image">
                 <img src="{{ asset('images/tokmuch-owner.jpeg') }}" 
-                    alt="TOKMUCH Creative Studio" 
+                    alt="TOKMUCH" 
                     class="about-image-photo">
             </div>
         </div>
@@ -571,54 +655,59 @@
     <div class="container">
         <h2 class="section-title">Galeri Karya</h2>
         
-        {{-- Loop through categories --}}
-        @foreach($categories as $category)
-        <div class="category-section">
-            <div class="category-header" style="background: {{ $category->gradient_color }};">
-                <h3>
-                    <i class="{{ $category->icon }}" style="margin-right: 10px; vertical-align: middle; transform: translateY(-4px);"></i> 
-                    {{ $category->name }}
-                </h3>
-                <span class="price-range">{{ $category->price_range }}</span>
-            </div>
+        {{-- WRAPPER BARU: home-gallery-grid --}}
+        <div class="home-gallery-grid">
             
-            {{-- Featured product card yang memanjang --}}
-            @if($category->products->first())
-                @php
-                    $featuredProduct = $category->products->first();
-                @endphp
+            {{-- Loop through categories --}}
+            @foreach($categories as $category)
+            <div class="category-section">
                 
-                <a href="{{ route('category.show', $category->slug) }}" class="featured-card-link">
-                    <div class="featured-card">
-                        <div class="featured-image">
-                            @if(filter_var($featuredProduct->image_icon, FILTER_VALIDATE_URL))
-                                <img src="{{ $featuredProduct->image_icon }}" 
-                                     alt="{{ $featuredProduct->title }}">
-                            @else
-                                <img src="{{ asset('images/' . $featuredProduct->image_icon) }}" 
-                                     alt="{{ $featuredProduct->title }}">
-                            @endif
-                            
-                            {{-- Overlay info produk --}}
-                            <div class="featured-overlay">
-                                <div class="featured-content">
-                                    <h4>{{ $featuredProduct->title }}</h4>
-                                    <p>{{ $featuredProduct->description }}</p>
-                                    <div class="featured-price">{{ $featuredProduct->formatted_price }}</div>
-                                    <div class="view-more-badge">
-                                        <span>Lihat Semua Karya</span>
-                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
+                {{-- Header Kategori --}}
+                <div class="category-header" style="background: {{ $category->gradient_color }};">
+                    <h3>
+                        <i class="{{ $category->icon }}" style="margin-right: 10px; vertical-align: middle; transform: translateY(-4px);"></i> 
+                        {{ $category->name }}
+                    </h3>
+                    <span class="price-range">{{ $category->price_range }}</span>
+                </div>
+                
+                {{-- Featured product card --}}
+                @if($category->products->first())
+                    @php
+                        $featuredProduct = $category->products->first();
+                    @endphp
+                    
+                    <a href="{{ route('category.show', $category->slug) }}" class="featured-card-link">
+                        <div class="featured-card">
+                            <div class="featured-image">
+                                @if(filter_var($featuredProduct->image_icon, FILTER_VALIDATE_URL))
+                                    <img src="{{ $featuredProduct->image_icon }}" 
+                                         alt="{{ $featuredProduct->title }}">
+                                @else
+                                    <img src="{{ asset('images/' . $featuredProduct->image_icon) }}" 
+                                         alt="{{ $featuredProduct->title }}">
+                                @endif
+                                
+                                {{-- Overlay info produk --}}
+                                <div class="featured-overlay">
+                                    <div class="featured-content">
+                                        <h4>{{ $featuredProduct->title }}</h4>
+                                        <p>{{ Str::limit($featuredProduct->description, 80) }}</p> {{-- Limit teks biar rapi --}}
+                                        <div class="featured-price">{{ $featuredProduct->formatted_price }}</div>
+                                        <div class="view-more-badge">
+                                            <span>Lihat Semua</span>
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            @endif
-        </div>
-        @endforeach
+                    </a>
+                @endif
+            </div>
+            @endforeach
     </div>
 </section>
 

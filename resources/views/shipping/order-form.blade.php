@@ -146,6 +146,44 @@
         opacity: 0.5; cursor: not-allowed; border-color: #555; color: #777;
     }
 
+    /* --- TOMBOL KEMBALI --- */
+    .back-link-wrapper {
+        margin-bottom: 1.5rem; /* Jarak ke kartu form */
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0.8rem 1.8rem;
+        background-color: var(--bg-elevated);
+        color: var(--text-primary);
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1rem;
+        border: 1px solid rgba(255, 111, 97, 0.2);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .back-link:hover {
+        background-color: var(--accent-coral);
+        color: black; /* Teks jadi hitam saat hover */
+        border-color: var(--accent-coral);
+        transform: translateX(-5px);
+        box-shadow: 0 6px 15px rgba(255, 111, 97, 0.3);
+    }
+    
+    .back-link i {
+        font-size: 1.2rem;
+    }
+
+    /* Responsive HP */
+    @media (max-width: 768px) {
+        .back-link { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
+    }
+
     /* Payment Options Style */
     .payment-option .bx {
         font-size: 2rem; /* Icon tombol pembayaran (Transfer/COD) tetap besar */
@@ -220,7 +258,15 @@
 @endsection
 
 @section('content')
-<div class="order-container">
+    <div class="order-container">
+        {{-- TOMBOL KEMBALI (BARU) --}}
+        <div class="back-link-wrapper">
+            {{-- Link otomatis kembali ke kategori produk tersebut --}}
+            <a href="{{ route('category.show', $product->category->slug) }}" class="back-link">
+                <i class='bx bx-arrow-back'></i> Kembali
+            </a>
+        </div>
+
     <div class="order-card">
         {{-- Product Summary --}}
         <div class="product-summary">

@@ -103,7 +103,7 @@ class ProductSeeder extends Seeder
         // Multiple sample images untuk Hoodie Custom
         $hoodieSamples = [
             [
-                'title' => 'Jaket Levis Custom Lukis',
+                'title' => 'Jaket Custom Lukis',
                 'description' => '',
                 'price' => 175000,
                 'image_icon' => 'products/custom-hoodie-1.png',
