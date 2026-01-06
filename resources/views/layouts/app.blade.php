@@ -251,7 +251,7 @@
         }
         
         /* Responsive */
-@media (max-width: 768px) {
+        @media (max-width: 768px) {
             nav {
                 padding: 0 1.5rem;
             }
@@ -270,15 +270,20 @@
                 right: -100%; /* Sembunyi di kanan layar */
                 height: 100vh;
                 width: 70%; /* Lebar menu 70% layar */
-                background-color: rgba(28, 28, 28, 0.98); /* Background gelap transparan dikit */
+                background-color: rgba(28, 28, 28, 0.98);
                 backdrop-filter: blur(10px);
                 flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 2rem;
+                
+                /* --- PERUBAHAN UTAMA DI SINI --- */
+                justify-content: flex-start; /* 1. Rata Atas */
+                padding-top: 8rem;           /* 2. Jarak dari atas biar ga ketabrak header */
+                align-items: center;         /* Tetap rata tengah secara horizontal */
+                gap: 2.5rem;                 /* Jarak antar teks diperlebar dikit */
+                /* ------------------------------ */
+
                 transition: right 0.4s ease-in-out;
                 box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-                z-index: 1000;
+                z-index: 998; /* Di bawah hamburger menu (z-index hamburger biasanya 1001) */
             }
 
             /* Class ini ditambahkan via JS saat tombol diklik */
@@ -287,28 +292,23 @@
             }
 
             .nav-links a {
-                font-size: 1.2rem;
+                /* --- PERUBAHAN FONT --- */
+                font-size: 1.4rem; /* 3. Font diperbesar (sebelumnya 1.2rem) */
+                /* -------------------- */
+                
                 font-weight: bold;
                 opacity: 0; /* Efek fade in */
                 transform: translateX(20px);
                 transition: all 0.5s ease;
+                
+                /* Tambahan: Garis bawah saat hover diperbesar */
+                padding-bottom: 5px;
             }
 
             /* Animasi teks muncul berurutan saat menu dibuka */
             .nav-links.active a {
                 opacity: 1;
                 transform: translateX(0);
-            }
-        }
-
-        /* Extra responsive untuk layar sangat kecil */
-        @media (max-width: 480px) {
-            .nav-links {
-                gap: 0.8rem;
-            }
-            
-            .nav-links a {
-                font-size: 0.85rem;
             }
         }
     </style>

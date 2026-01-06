@@ -185,13 +185,73 @@
     }
 
     /* Payment Options Style */
-    .payment-option .bx {
-        font-size: 2rem; /* Icon tombol pembayaran (Transfer/COD) tetap besar */
+    .payment-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2 Kolom sama lebar */
+        gap: 1rem;
+    }
+
+    /* Kartu Pembayaran */
+    .payment-card {
+        cursor: pointer;
+        position: relative;
+        border: 1px solid rgba(255, 111, 97, 0.3);
+        padding: 1.5rem 0.5rem;
+        border-radius: 12px;
+        background: var(--bg-dark);
+        height: 100%; /* KUNCI: Paksa tinggi kartu sama */
+        
+        /* Flexbox untuk isi kartu */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start; /* Isi rata atas (biar icon sejajar) */
+        
+        transition: all 0.3s ease;
+    }
+
+    /* Efek Hover */
+    .payment-card:hover {
+        border-color: var(--accent-coral);
+        background: rgba(255, 111, 97, 0.05);
+    }
+
+    /* Kustomisasi Radio Button */
+    .payment-card input[type="radio"] {
+        accent-color: var(--accent-coral); /* Warna dot jadi Coral */
+        transform: scale(1.4); /* Dot lebih besar */
+        margin-bottom: 12px; /* Jarak ke icon */
+        cursor: pointer;
+    }
+
+    /* Icon Bank/COD */
+    .payment-card .bx {
+        font-size: 2.5rem; /* Icon lebih besar & jelas */
         color: var(--accent-coral);
         margin-bottom: 8px;
-        display: block; 
+        display: block;
+        line-height: 1;
+    }
+
+    /* Teks Label */
+    .payment-card span {
+        font-weight: bold;
+        font-size: 0.9rem;
         text-align: center;
-        margin-right: 0;
+        line-height: 1.3;
+        color: var(--text-primary);
+        
+        /* Pastikan teks panjang tetap rapi */
+        display: block;
+        width: 100%;
+    }
+
+    /* LOGIKA HIGHLIGHT SAAT DIPILIH (Modern CSS) */
+    /* Jika browser support :has (Chrome/Edge/Safari terbaru) */
+    .payment-card:has(input:checked) {
+        border: 2px solid var(--accent-coral);
+        background: rgba(255, 111, 97, 0.1);
+        box-shadow: 0 4px 15px rgba(255, 111, 97, 0.15);
     }
     
     #bankInfo p .bx {
@@ -225,7 +285,7 @@
         padding: 2rem;
         border-top: 1px solid rgba(255, 111, 97, 0.2);
     }
-    
+
     .submit-button:hover { transform: translateY(-3px); background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-coral) 100%); color: var(--bg-dark); box-shadow: 0 12px 30px rgba(255, 111, 97, 0.5); }
     .submit-button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; background: #444; color: white; }
 
@@ -263,7 +323,41 @@
     }
     .error-message.show { display: block; }
 
-    @media (max-width: 768px) { .order-container { padding: 0 1rem; } .order-card { padding: 1.5rem; } }
+    /* Responsive HP */
+    @media (max-width: 768px) {
+        .order-container { padding: 0 1rem; } 
+        .order-card { padding: 1.5rem; }
+        .back-link { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
+
+        /* --- PERBAIKAN SUMMARY PRODUK DI HP --- */
+        .product-summary {
+            padding: 1.2rem; /* Padding dikurangi biar ga gembung */
+            align-items: flex-start; /* Biar kalau judulnya 2 baris, harga tetap di atas */
+        }
+
+        .product-summary h2 {
+            font-size: 1.15rem; /* Kecilkan dari 1.5rem -> 1.15rem */
+            line-height: 1.3;
+            margin-bottom: 4px;
+        }
+
+        /* Label kecil "PRODUK" */
+        .product-summary small {
+            font-size: 0.75rem !important;
+        }
+
+        /* Deskripsi singkat */
+        .product-summary p {
+            font-size: 0.85rem !important;
+            line-height: 1.4;
+        }
+
+        .product-summary .price {
+            font-size: 1.15rem; /* Samakan dengan judul */
+            white-space: nowrap; /* Pastikan harga ga patah ke bawah */
+            margin-left: 15px; /* Jarak aman dari judul */
+        }
+    }
 </style>
 @endsection
 
@@ -372,20 +466,26 @@
             <div class="form-section">
                 <h3><i class='bx bxs-wallet'></i> Metode Pembayaran</h3>
                 
-                <div class="payment-options" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                    <label class="payment-option" style="cursor: pointer; border: 1px solid rgba(255, 111, 97, 0.3); padding: 1rem; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-dark);">
-                        <input type="radio" name="payment_method" value="bank_transfer" checked onchange="togglePaymentInfo()" style="margin-bottom: 10px;">
+                <div class="payment-options">
+                    
+                    {{-- Opsi 1: Transfer --}}
+                    <label class="payment-card">
+                        {{-- Perhatikan class .payment-card di atas --}}
+                        <input type="radio" name="payment_method" value="bank_transfer" checked onchange="togglePaymentInfo()">
                         <i class='bx bxs-bank'></i>
-                        <span style="font-weight: bold;">Transfer Bank</span>
+                        <span>Transfer Bank</span>
                     </label>
 
-                    <label class="payment-option" style="cursor: pointer; border: 1px solid rgba(255, 111, 97, 0.3); padding: 1rem; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-dark);">
-                        <input type="radio" name="payment_method" value="cod" onchange="togglePaymentInfo()" style="margin-bottom: 10px;">
+                    {{-- Opsi 2: COD --}}
+                    <label class="payment-card">
+                        <input type="radio" name="payment_method" value="cod" onchange="togglePaymentInfo()">
                         <i class='bx bxs-home-smile'></i>
-                        <span style="font-weight: bold;">Bayar di Tempat (COD)</span>
+                        <span>Bayar di Tempat (COD)</span>
                     </label>
+                    
                 </div>
 
+                {{-- Container Info Bank (Pastikan style flex-nya lengkap) --}}
                 <div id="bankInfo" style="margin-top: 1rem; padding: 1rem; background: rgba(255, 111, 97, 0.1); border-radius: 8px; border: 1px dashed var(--accent-coral); display: flex; align-items: center; justify-content: space-between;">
                     <div style="flex: 1;">
                         <p style="margin:0; font-weight: bold;"><i class='bx bx-credit-card'></i> Bank BNI</p>
@@ -397,12 +497,12 @@
                     <div style="margin-left: 15px;">
                         <img src="{{ asset('images/bank.png') }}" 
                             alt="Logo BNI" 
-                            style="height: 140px; width: auto; display: block; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));">
+                            style="height: 120px; width: auto; display: block; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));">
                     </div>
                 </div>
 
                 <div id="codInfo" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.2); border-radius: 8px;">
-                    <p style="margin:0;"><i class='bx bxs-info-circle'></i> Pastikan ada orang di rumah dan uang pas saat kurir datang.</p>
+                    <p style="margin:0;"><i class='bx bxs-info-circle' style="transform: translateY(-2px);"></i> Pastikan ada orang di rumah ya kak</p>
                 </div>
             </div>
 
@@ -719,7 +819,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const codInfo = document.getElementById('codInfo');
 
         if (method === 'bank_transfer') {
-            bankInfo.style.display = 'block';
+            bankInfo.style.display = 'flex';
             codInfo.style.display = 'none';
         } else {
             bankInfo.style.display = 'none';

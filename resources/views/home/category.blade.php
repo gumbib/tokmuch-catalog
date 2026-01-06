@@ -5,7 +5,7 @@
 
 @section('styles')
 <style>
-    /* --- HERO SECTION (Tetap dipertahankan buat intro) --- */
+    /* --- HERO SECTION --- */
     .category-hero {
         background: linear-gradient(135deg, var(--bg-dark) 0%, #2C2416 100%);
         padding: 4rem 2rem 2rem;
@@ -23,11 +23,12 @@
         margin: 0 auto;
     }
 
-    /* --- SHOWCASE AREA (SESUAI SKETSA) --- */
+    /* --- SHOWCASE AREA --- */
     .showcase-section {
         background-color: var(--bg-dark);
-        padding: 3rem 0;
-        min-height: 80vh; /* Biar lega */
+        /* PERBAIKAN 1: Tambah padding kiri-kanan 1.5rem (24px) biar ada Gap di HP */
+        padding: 3rem 1.5rem; 
+        min-height: 80vh;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -36,21 +37,21 @@
     /* Container Utama */
     .showcase-container {
         width: 100%;
-        max-width: 1000px; /* Lebar maksimal area showcase */
+        max-width: 1000px;
         position: relative;
         background-color: var(--bg-elevated);
         border-radius: 20px;
         box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         border: 1px solid rgba(255, 111, 97, 0.2);
         overflow: hidden;
-        margin-top: 2rem;
+        /* Margin top dihapus, kita atur jarak pake gap flex di parent atau margin bottom back button */
     }
 
     /* Area Gambar (Tengah) */
     .showcase-image-wrapper {
         width: 100%;
-        height: 500px; /* Tinggi fix biar layout ga lompat-lompat */
-        background-color: #151515; /* Background gelap banget buat gambar */
+        height: 500px; /* Desktop Height */
+        background-color: #151515;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -60,7 +61,7 @@
     .showcase-image-wrapper img {
         max-width: 100%;
         max-height: 100%;
-        object-fit: contain; /* Gambar utuh, ga terpotong */
+        object-fit: contain;
         opacity: 0;
         transition: opacity 0.4s ease-in-out;
     }
@@ -69,7 +70,7 @@
         opacity: 1;
     }
 
-    /* Tombol Navigasi (Panah Kiri Kanan) */
+    /* Tombol Navigasi */
     .nav-btn {
         position: absolute;
         top: 50%;
@@ -98,7 +99,7 @@
     .nav-btn.prev { left: 20px; }
     .nav-btn.next { right: 20px; }
 
-    /* Area Info Bawah (Judul, Harga, Tombol Order) */
+    /* Info Bar Bawah */
     .showcase-info-bar {
         padding: 1.5rem 2rem;
         background: linear-gradient(to right, var(--bg-elevated), #252525);
@@ -150,7 +151,7 @@
         box-shadow: 0 6px 20px rgba(255, 69, 0, 0.6);
     }
 
-    /* Indikator (Titik-titik kecil) */
+    /* Dots Indicator */
     .dots-container {
         display: flex;
         justify-content: center;
@@ -174,23 +175,25 @@
 
     /* Back Button */
     .back-link-wrapper {
-        margin-bottom: 2rem;
-        align-self: flex-start;
-        margin-left: max(2rem, calc((100% - 1000px) / 2)); 
+        margin-bottom: 1.5rem;
+        align-self: center; /* Center alignment */
+        width: 100%; 
+        max-width: 1000px; /* Samain max-width sama container slider */
+        padding: 0; /* Padding ngikutin parent section */
     }
 
     .back-link {
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        padding: 0.8rem 1.8rem; /* Padding biar tebal */
-        background-color: var(--bg-elevated); /* Background gelap elegan */
+        padding: 0.8rem 1.8rem;
+        background-color: var(--bg-elevated);
         color: var(--text-primary);
         text-decoration: none;
-        border-radius: 50px; /* Bentuk Pil */
+        border-radius: 50px;
         font-weight: 600;
         font-size: 1rem;
-        border: 1px solid rgba(255, 111, 97, 0.2); /* Border tipis coral */
+        border: 1px solid rgba(255, 111, 97, 0.2);
         transition: all 0.3s ease;
         box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
@@ -199,13 +202,11 @@
         background-color: var(--accent-coral);
         color: var(--bg-dark);
         border-color: var(--accent-coral);
-        transform: translateX(-5px); /* Geser sedikit ke kiri */
+        transform: translateX(-5px);
         box-shadow: 0 6px 15px rgba(255, 111, 97, 0.3);
     }
     
-    .back-link i {
-        font-size: 1.2rem;
-    }
+    .back-link i { font-size: 1.2rem; }
 
     /* Footer */
     footer {
@@ -218,24 +219,41 @@
 
     /* Responsive untuk HP */
     @media (max-width: 768px) {
-        .back-link-wrapper { margin-left: 1rem; }
-        .back-link { 
-            padding: 0.6rem 1.2rem; 
-            font-size: 0.9rem; 
+        .category-hero {
+            padding: 3rem 1.5rem;
         }
-        .showcase-image-wrapper { height: 350px; }
+        
+        /* Gap container ke layar HP dihandle oleh padding .showcase-section di atas */
+        
+        /* PERBAIKAN 2: Kecilin tinggi gambar di HP */
+        .showcase-image-wrapper { 
+            height: 260px; /* Ukuran pas untuk HP (sebelumnya 350px kegedean) */
+        }
+        
         .showcase-info-bar {
             flex-direction: column;
             text-align: center;
             gap: 1.5rem;
+            padding: 1.5rem;
         }
+        
         .nav-btn {
             width: 40px; height: 40px; font-size: 1.2rem;
-            background-color: rgba(0,0,0,0.3); /* Lebih transparan di HP biar ga nutup gambar */
+            background-color: rgba(0,0,0,0.3);
+            top: 130px !important; 
+            transform: translateY(-50%);
         }
+        
         .nav-btn.prev { left: 10px; }
         .nav-btn.next { right: 10px; }
-        .back-link-wrapper { margin-left: 1rem; }
+        
+        .back-link { 
+            padding: 0.6rem 1.2rem; 
+            font-size: 0.9rem; 
+            width: auto !important;
+            display: inline-flex !important;
+            justify-content: center;
+        }
     }
 </style>
 @endsection
