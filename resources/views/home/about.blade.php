@@ -86,19 +86,6 @@
         z-index: -1;
     }
 
-    /* Teks */
-    .greeting-badge {
-        display: inline-block;
-        background: rgba(255, 111, 97, 0.15);
-        color: var(--accent-coral);
-        padding: 0.5rem 1rem;
-        border-radius: 50px;
-        font-weight: bold;
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
-        border: 1px solid rgba(255, 111, 97, 0.3);
-    }
-
     .about-text h1 {
         font-size: 2.5rem;
         color: var(--text-primary);
@@ -174,7 +161,6 @@
             </div>
 
             <div class="about-text">
-                <span class="greeting-badge">Tentang TOKMUCH</span>
                 <h1>{{ $aboutTitle }}</h1>
                 
                 {{-- KONTEN LENGKAP --}}

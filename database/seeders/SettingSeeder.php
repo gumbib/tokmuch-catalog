@@ -36,7 +36,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'key' => 'about_description',
-                'value' => 'Tokmuch merupakan sebuah brand kreatif yang berdiri sejak tahun 2019. Nama Tokmuch merupakan singkatan dari Toko Muchtarom, yang diambil dari nama Muchtarom, ayah dari pemilik (owner) brand Tokmuch. Nama ini dipilih sebagai bentuk penghormatan sekaligus identitas yang memiliki nilai personal bagi pendirinya. Tokmuch bergerak di bidang seni lukis dan produk kreatif berbasis custom. Brand ini memproduksi sekaligus menjual berbagai produk seni dengan sentuhan lukisan manual yang unik dan bernilai estetika tinggi. Rata-rata produk yang dijual di Tokmuch merupakan barang handmade 100%, yang dikerjakan langsung secara manual dengan mengutamakan ketelitian, kreativitas, dan kualitas seni.',
+                'value' => 'TOKMUCH merupakan sebuah brand kreatif yang berdiri sejak tahun 2019. Nama Tokmuch merupakan singkatan dari Toko Muchtarom, yang diambil dari nama Muchtarom, ayah dari pemilik (owner) brand Tokmuch. Nama ini dipilih sebagai bentuk penghormatan sekaligus identitas yang memiliki nilai personal bagi pendirinya. Tokmuch bergerak di bidang seni lukis dan produk kreatif berbasis custom. Brand ini memproduksi sekaligus menjual berbagai produk seni dengan sentuhan lukisan manual yang unik dan bernilai estetika tinggi. Rata-rata produk yang dijual di Tokmuch merupakan barang handmade 100%, yang dikerjakan langsung secara manual dengan mengutamakan ketelitian, kreativitas, dan kualitas seni.',
                 'type' => 'textarea',
                 'group' => 'about'
             ],
