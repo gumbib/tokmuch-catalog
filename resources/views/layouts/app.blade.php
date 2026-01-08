@@ -213,11 +213,11 @@
         
         /* Footer */
         footer {
-            background-color: var(--neutral-dark);
-            color: var(--white);
+            background-color: var(--primary-purple) !important;
+            color: var(--text-secondary);
             text-align: center;
             padding: 2rem;
-            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 111, 97, 0.2);
         }
         
         /* Floating WhatsApp Button */
@@ -325,8 +325,8 @@
     {{-- Include Footer Component --}}
     @include('components.footer')
     
-    {{-- Include Floating WhatsApp Button --}}
-    @include('components.whatsapp-float')
+    {{-- Include Tawk.to Live Chat --}}
+    @include('components.tawk-widget')
     
     {{-- Global JavaScript --}}
     <script>

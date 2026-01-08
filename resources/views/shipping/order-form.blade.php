@@ -260,7 +260,7 @@
         transform: translateY(-2px);
     }
 
-    /* --- TOMBOL SUBMIT (WHATSAPP) --- */
+    /* --- TOMBOL SUBMIT --- */
     .submit-button { 
         width: 100%; padding: 1.2rem; 
         background: linear-gradient(135deg, var(--accent-coral) 0%, var(--accent-orange) 100%); 
@@ -269,21 +269,11 @@
         transition: all 0.3s ease; margin-top: 1.5rem; 
         box-shadow: 0 8px 25px rgba(255, 111, 97, 0.3);
         text-transform: uppercase;
-        letter-spacing: 1px;
-        
+        letter-spacing: 1.1px;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 10px;
-    }
-
-    /* Footer */
-    footer {
-        background-color: var(--primary-purple) !important;
-        color: var(--text-secondary);
-        text-align: center;
-        padding: 2rem;
-        border-top: 1px solid rgba(255, 111, 97, 0.2);
     }
 
     .submit-button:hover { transform: translateY(-3px); background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-coral) 100%); color: var(--bg-dark); box-shadow: 0 12px 30px rgba(255, 111, 97, 0.5); }
@@ -491,7 +481,7 @@
                         <p style="margin:0; font-weight: bold;"><i class='bx bx-credit-card'></i> Bank BNI</p>
                         <p style="margin:0; font-size: 1.2rem; font-family: monospace;">1551556938</p>
                         <p style="margin:0;">a.n Yulianto Wibowo</p>
-                        <small style="display:block; margin-top:5px; color: #aaa;">*Silakan kirim bukti transfer ke WhatsApp setelah order.</small>
+                        <small style="display:block; margin-top:5px; color: #aaa;">*Silakan kirim bukti transfer ke CS setelah order.</small>
                     </div>
 
                     <div style="margin-left: 15px;">
@@ -502,7 +492,7 @@
                 </div>
 
                 <div id="codInfo" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.2); border-radius: 8px;">
-                    <p style="margin:0;"><i class='bx bxs-info-circle' style="transform: translateY(-2px);"></i> Pastikan ada orang di rumah ya kak</p>
+                    <p style="margin:0;"><i class='bx bxs-info-circle' style="transform: translateY(-2px);"></i> Pastikan ada orang di rumah ya kak.</p>
                 </div>
             </div>
 
@@ -531,7 +521,7 @@
             </div>
 
             <button type="submit" class="submit-button" id="submitButton" disabled>
-                <i class='bx bxl-whatsapp'></i> Lanjut ke WhatsApp
+                <i class='bx bxs-cart-alt'></i> ORDER
             </button>
         </form>
     </div>

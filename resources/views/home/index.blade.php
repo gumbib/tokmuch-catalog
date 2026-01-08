@@ -63,7 +63,7 @@
     }
 
     .hero-logo {
-        height: 420px;
+        height: 400px;
         width: auto;
         display: block;
         margin: 0 auto;
@@ -93,6 +93,7 @@
 
     .cta-button:hover {
         transform: translateY(-3px);
+        color: white;
         box-shadow: 0 6px 20px rgba(255, 69, 0, 0.4);
         background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-coral) 100%);
     }
@@ -683,42 +684,85 @@
 
     .contact-content p {
         font-size: 1.2rem;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
         color: var(--text-secondary);
     }
 
-    .whatsapp-button {
-        display: inline-flex;
+    /* Container tombol sosmed */
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem; /* Jarak antar icon */
+        flex-wrap: wrap;
+    }
+
+    /* Style dasar tombol bulat */
+    .social-btn {
+        width: 65px;
+        height: 65px;
+        background-color: var(--bg-elevated); /* Warna background tombol */
+        border-radius: 50%;
+        display: flex;
         align-items: center;
-        gap: 1rem;
-        padding: 1.2rem 3rem;
-        background-color: #25D366;
-        color: var(--bg-dark);
+        justify-content: center;
         text-decoration: none;
-        border-radius: 50px;
-        font-weight: bold;
-        font-size: 1.2rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
-    }
-
-    .whatsapp-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
-        background-color: #20BA5A;
-    }
-
-    /* Footer */
-    footer {
-        background-color: var(--primary-purple) !important;
         color: var(--text-secondary);
-        text-align: center;
-        padding: 2rem;
-        border-top: 1px solid rgba(255, 111, 97, 0.2);
+        font-size: 2rem; /* Ukuran icon */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efek membal */
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Efek Hover Umum */
+    .social-btn:hover {
+        transform: translateY(-8px) scale(1.1);
+        color: #fff;
+        border-color: transparent;
+    }
+
+    /* --- WARNA KHUSUS TIAP SOSMED --- */
+
+    /* WhatsApp */
+    .social-btn.whatsapp:hover {
+        background-color: #25D366;
+        box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+    }
+
+    /* Instagram */
+    .social-btn.instagram:hover {
+        background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+        box-shadow: 0 10px 25px rgba(214, 36, 159, 0.4);
+    }
+
+    /* TikTok */
+    .social-btn.tiktok:hover {
+        background-color: #000;
+        box-shadow: 0 10px 25px rgba(255, 0, 80, 0.3);
+        text-shadow: 2px 2px 0px #00f2ea, -2px -2px 0px #ff0050; /* Efek Glitch TikTok */
+    }
+
+    /* Label Tooltip (Muncul saat hover) */
+    .social-btn::after {
+        content: attr(aria-label);
+        position: absolute;
+        bottom: -40px;
+        font-size: 0.8rem;
+        opacity: 0;
+        transition: 0.3s;
+        color: var(--text-secondary);
+        white-space: nowrap;
+        font-weight: bold;
+    }
+    
+    .social-btn:hover::after {
+        bottom: -30px;
+        opacity: 1;
     }
 
     /* Floating WhatsApp Button */
-    .floating-whatsapp {
+    /* .floating-whatsapp {
         position: fixed;
         bottom: 30px;
         right: 30px;
@@ -734,19 +778,20 @@
         transition: all 0.3s ease;
         z-index: 999;
         text-decoration: none;
-    }
+    } */
 
-    .floating-whatsapp:hover {
+    /* .floating-whatsapp:hover {
         transform: scale(1.4);
         box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
-    }
+    } */
 
-    .floating-whatsapp svg {
+    /* .floating-whatsapp svg {
         width: 35px;
         height: 35px;
         fill: #FFFFFF;
     }
-    
+     */
+
     /* Responsive Design */
     @media (max-width: 768px) {
         .hero h1 {
@@ -893,17 +938,37 @@
 {{-- Contact Section --}}
 <section id="contact">
     <div class="container">
-        <h2 class="section-title">Contact</h2>
+        <h2 class="section-title">Hubungi Kami</h2>
         <div class="contact-content">
-            <p>Tertarik untuk order? Chat admin sekarang!</p>
-            <a href="https://wa.me/{{ $whatsappNumber }}?text={{ urlencode('Halo TOKMUCH, saya ingin memesan') }}" 
-               class="whatsapp-button" 
-               target="_blank">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-                Chat via WhatsApp
-            </a>
+            <p>Tertarik custom order atau sekadar tanya-tanya? <br> Kunjungi sosial media kami:</p>
+            
+            <div class="social-links">
+                
+                {{-- 1. WhatsApp --}}
+                <a href="https://wa.me/{{ $whatsappNumber }}?text={{ urlencode('Halo TOKMUCH, saya ingin custom order...') }}" 
+                   class="social-btn whatsapp" 
+                   target="_blank"
+                   aria-label="WhatsApp">
+                    <i class='bx bxl-whatsapp'></i>
+                </a>
+
+                {{-- 2. Instagram --}}
+                <a href="https://instagram.com/tokmuch_" 
+                   class="social-btn instagram" 
+                   target="_blank"
+                   aria-label="Instagram">
+                    <i class='bx bxl-instagram'></i>
+                </a>
+
+                {{-- 3. TikTok --}}
+                <a href="https://tiktok.com/@tokmuch" 
+                   class="social-btn tiktok" 
+                   target="_blank"
+                   aria-label="TikTok">
+                    <i class='bx bxl-tiktok'></i>
+                </a>
+
+            </div>
         </div>
     </div>
 </section>

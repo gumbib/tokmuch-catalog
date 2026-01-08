@@ -208,15 +208,6 @@
     
     .back-link i { font-size: 1.2rem; }
 
-    /* Footer */
-    footer {
-        background-color: var(--primary-purple) !important;
-        color: var(--text-secondary);
-        text-align: center;
-        padding: 2rem;
-        border-top: 1px solid rgba(255, 111, 97, 0.2);
-    }
-
     /* Responsive untuk HP */
     @media (max-width: 768px) {
         .category-hero {

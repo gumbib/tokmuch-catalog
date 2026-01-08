@@ -377,10 +377,14 @@ class ShippingController extends Controller
             'status' => 'pending',
         ]);
         
-        // Generate WhatsApp message
-        $waNumber = '6285701888105'; // Nomor WhatsApp TOKMUCH - GANTI DENGAN NOMOR KAMU!
+        // Generate message
+        $waNumber = '6285701888105';
         $message = $this->generateWhatsAppMessage($order, $product);
-        $waLink = "https://wa.me/{$waNumber}?text=" . urlencode($message);
+        return view('shipping.success', [
+            'order' => $order,
+            'product' => $product,
+            'waMessage' => $message
+        ]);
         
         // Redirect ke WhatsApp
         return redirect($waLink);
@@ -395,13 +399,10 @@ class ShippingController extends Controller
             $message .= "*Produk:*\n";
             $message .= "• {$product->title}\n";
             $message .= "• Rp " . number_format($product->price, 0, ',', '.') . "\n\n";
-            
-            // ... (bagian data penerima sama) ...
             $message .= "*Data Penerima:*\n";
             $message .= "• Nama: {$order->customer_name}\n";
             $message .= "• No HP: {$order->customer_phone}\n\n";
-            
-            // ... (bagian alamat sama) ...
+
             $message .= "*Alamat Pengiriman:*\n";
             $message .= "{$order->address}\n";
             $message .= "{$order->subdistrict_name}, {$order->city_name}\n";
@@ -422,7 +423,7 @@ class ShippingController extends Controller
                 $message .= "• _Mohon diproses kak, saya akan bayar tunai ke kurir._\n";
             } else {
                 $message .= "• Metode: Transfer Bank\n";
-                $message .= "• Bank BNI: 1551556938 (Yulinto Wibowo)\n"; // Sesuaikan nama/rek kamu
+                $message .= "• Bank BNI: 1551556938 (Yulinto Wibowo)\n";
                 $message .= "• _Saya akan segera mengirimkan bukti transfer._\n";
             }
             $message .= "\n";
@@ -430,8 +431,7 @@ class ShippingController extends Controller
             if ($order->notes) {
                 $message .= "*Catatan:*\n{$order->notes}\n\n";
             }
-            
-            // PERBAIKAN DISINI: Gunakan $order->total_amount
+
             $message .= "*TOTAL: Rp " . number_format($order->total_amount, 0, ',', '.') . "*\n\n";
             $message .= "Mohon konfirmasi pesanannya ya kak. Terima kasih! 🙏";
             
