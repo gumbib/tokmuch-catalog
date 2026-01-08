@@ -73,6 +73,15 @@
         border: 2px solid rgba(218, 165, 32, 0.3);
     }
 
+    /* Footer */
+    footer {
+        background-color: var(--primary-purple) !important;
+        color: var(--text-secondary);
+        text-align: center;
+        padding: 2rem;
+        border-top: 1px solid rgba(255, 111, 97, 0.2);
+    }
+
     /* Frame Dekorasi */
     .about-image-wrapper::after {
         content: '';
