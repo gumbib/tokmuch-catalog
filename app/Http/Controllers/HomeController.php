@@ -47,6 +47,19 @@ class HomeController extends Controller
             'aboutDescription'
         ));
     }
+
+    public function about()
+    { 
+        $settings = \App\Models\Setting::first();
+        
+        $aboutTitle = Setting::getValue('about_title', 'Kreativitas Tanpa Batas');
+        $aboutDescription = Setting::getValue('about_description');
+        
+        return view('home.about', compact(
+            'aboutTitle',
+            'aboutDescription'
+        ));
+    }
     
     /**
      * Menampilkan detail kategori dengan semua produknya.

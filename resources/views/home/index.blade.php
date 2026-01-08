@@ -135,49 +135,162 @@
     
     /* About Section */
     #about {
+        background-color: var(--bg-dark); /* Background utama section */
+        padding: 6rem 0;
+        position: relative;
+    }
+
+    /* Dekorasi Background Abstrak (Opsional biar ga sepi) */
+    #about::before {
+        content: '';
+        position: absolute;
+        top: 10%; right: 0;
+        width: 300px; height: 300px;
+        background: radial-gradient(circle, rgba(255, 111, 97, 0.05) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    /* Container Kartu Kaca (Glassmorphism subtle) */
+    .about-card {
         background-color: var(--bg-elevated);
-        padding: 5rem 0;
-    }
-
-    .about-content {
+        border-radius: 25px;
+        padding: 3rem;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.2);
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 3rem;
-        align-items: center;
+        grid-template-columns: 1.5fr 2fr; /* Gambar lebih kecil dikit dari teks */
+        gap: 4rem;
+        align-items: left;
     }
 
-    .about-text h3 {
-        font-size: 1.8rem;
-        color: var(--accent-coral);
-        margin-bottom: 1rem;
-    }
-
-    .about-text p {
-        font-size: 1.1rem;
-        line-height: 1.8;
-        color: var(--text-secondary);
-        margin-bottom: 1rem;
+    /* Styling Gambar dengan Frame Unik */
+    .about-image-wrapper {
+        position: relative;
+        width: fit-content; /* KUNCI: Wrapper ngikutin ukuran gambar */
+        margin: 0 auto; /* Center di kolomnya */
+        z-index: 1;
     }
 
     .about-image {
-        background: linear-gradient(135deg, var(--accent-yellow) 0%, var(--accent-orange) 100%);
-        height: 400px;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 10px 40px var(--shadow-heavy);
-        transition: transform 0.3s ease;
-        border: 2px solid rgba(218, 165, 32, 0.3);
-    }
-
-    .about-image:hover {
-        transform: scale(1.02);
-        box-shadow: 0 15px 50px rgba(255, 111, 97, 0.3);
-    }
-
-    .about-image img {
         width: 100%;
-        height: 100%;
+        height: auto;
+        border-radius: 20px;
         object-fit: cover;
+        display: block;
+        position: relative;
+        z-index: 2;
+        top: 16px;
+        border: 2px solid rgba(218, 165, 32, 0.3);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        transition: transform 0.3s ease;
+    }
+    
+    /* .about-image:hover {
+        transform: scale(1.02);
+    } */
+
+    /* Kotak dekorasi di belakang gambar */
+    /* .about-image-wrapper::after {
+        content: '';
+        position: absolute;
+        top: 16px; left: 0px;
+        width: 100%; height: 16%;
+        border: 2px solid var(--accent-coral);
+        border-radius: 20px;
+        z-index: 1;
+        opacity: 0.6;
+    } */
+
+    /* Tombol 'more about' */
+    .read-more-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 1.2rem;
+        margin-left: 21.5rem;
+        padding: 0.8rem 2rem;
+        background: transparent;
+        border: 2px solid var(--accent-coral);
+        color: var(--accent-coral);
+        border-radius: 50px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .read-more-btn:hover {
+        background: var(--accent-coral);
+        color: var(--bg-dark);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(255, 111, 97, 0.3);
+    }
+
+    /* Styling Teks */
+    .about-text {
+        padding-top: 1rem; /* Sedikit turun biar sejajar mata dengan gambar */
+    }
+
+    .about-text h3 {
+        font-size: 2.2rem;
+        color: var(--text-primary);
+        margin-bottom: 1.5rem;
+    }
+
+    .greeting-badge {
+        display: inline-block;
+        background: rgba(255, 111, 97, 0.15);
+        color: var(--accent-coral);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 111, 97, 0.3);
+    }
+
+    .about-text p {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        text-align: justify; /* Biar rata kanan kiri */
+    }
+
+    /* List Keunggulan (Biar ga full teks) */
+    .feature-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-top: 2.5rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .feature-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .feature-item i {
+        font-size: 1.5rem;
+        color: var(--accent-yellow);
+        background: rgba(218, 165, 32, 0.1);
+        padding: 8px;
+        border-radius: 10px;
+        flex-shrink: 0;
+    }
+
+    .feature-item h4 {
+        font-size: 1.1rem;
+        color: var(--text-primary);
+        margin-bottom: 4px;
+    }
+
+    .feature-item span {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        line-height: 1.4;
     }
     
     /* Gallery Section - Fixed untuk Dark Mode */
@@ -393,7 +506,33 @@
             gap: 2rem;
         }
 
-        /* 2. HEADER KATEGORI (Solusi Font Kegedean) */
+        .about-card {
+            grid-template-columns: 1fr; /* Tumpuk ke bawah */
+            padding: 2rem;
+            gap: 2rem;
+        }
+        
+        .about-image-wrapper {
+            order: -1; /* Gambar di atas */
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .about-image {
+            height: 300px;
+        }
+
+        .feature-list {
+            grid-template-columns: 1fr; /* List jadi 1 kolom di HP */
+            gap: 1rem;
+        }
+        
+        .about-text p {
+            text-align: left; /* Di HP jangan justify biar ga bolong2 */
+        }
+
+        /* HEADER KATEGORI (Solusi Font Kegedean) */
         .category-header {
             flex-direction: column; /* Ubah jadi tumpuk atas-bawah biar lega */
             align-items: flex-start; /* Rata kiri */
@@ -654,17 +793,22 @@
 <section id="about">
     <div class="container">
         <h2 class="section-title">Tentang TOKMUCH</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <h3>{{ $aboutTitle }}</h3>
-                <p>{{ $aboutDescription }}</p>
-                <p>Produk yang ditawarkan oleh Tokmuch antara lain jaket lukis, tas totebag lukis, kaos, case korek, kaling, gantungan kunci, serta berbagai media lukis lainnya. Selain menjual produk, Tokmuch juga menyediakan jasa lukis/custom, khususnya jasa menggambar wajah sesuai permintaan (request) pelanggan. Layanan ini memungkinkan konsumen mendapatkan karya seni yang bersifat personal, eksklusif, dan memiliki nilai emosional tinggi.</p>
-                <p>Dengan mengusung konsep seni handmade dan personalisasi, Tokmuch hadir sebagai brand yang memadukan kreativitas, nilai seni, serta makna personal dalam setiap karya yang dihasilkan.</p>
-            </div>
-            <div class="about-image">
+        <div class="about-card">
+
+            <div class="about-image-wrapper">
                 <img src="{{ asset('images/tokmuch-owner.jpeg') }}" 
-                    alt="TOKMUCH" 
-                    class="about-image-photo">
+                    alt="TOKMUCH Creative Studio" 
+                    class="about-image">
+            </div>
+
+            <div class="about-text">
+                <span class="greeting-badge">{{ $aboutTitle }}</span>
+                <p><strong>TOKMUCH</strong> (Toko Muchtarom) adalah brand kreatif yang berdiri sejak 2019 sebagai bentuk penghormatan dan identitas personal pendirinya. Kami bergerak di bidang seni lukis manual dan produk kreatif berbasis custom dengan standar estetika tinggi.</p>
+
+                <a href="{{ route('about') }}" class="read-more-btn">
+                    Lebih Detail <i class='bx bx-right-arrow-alt'></i>
+                </a>
+
             </div>
         </div>
     </div>

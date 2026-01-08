@@ -44,7 +44,6 @@
         box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         border: 1px solid rgba(255, 111, 97, 0.2);
         overflow: hidden;
-        /* Margin top dihapus, kita atur jarak pake gap flex di parent atau margin bottom back button */
     }
 
     /* Area Gambar (Tengah) */
@@ -84,6 +83,7 @@
         cursor: pointer;
         display: flex;
         align-items: center;
+        top: 250px;
         justify-content: center;
         font-size: 1.5rem;
         z-index: 10;

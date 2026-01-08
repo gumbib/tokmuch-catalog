@@ -12,9 +12,11 @@ use App\Http\Controllers\ShippingController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/category/{slug}', [HomeController::class, 'category'])->name('category.show');
 
-Route::get('/about', function () {
-    return view('pages.about');
-})->name('about');
+// Route::get('/about', function () {
+//     return view('pages.about');
+// })->name('about');
+
+Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->name('about');
 
 Route::get('/contact', function () {
     return view('pages.contact');
