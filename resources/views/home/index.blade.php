@@ -967,7 +967,7 @@
                 </a>
 
                 {{-- 2. Instagram --}}
-                <a href="https://instagram.com/tokmuch_" 
+                <a href="https://www.instagram.com/yuli.wiii?igsh=NTc4MTIwNjQ2YQ==" 
                    class="social-btn instagram" 
                    target="_blank"
                    aria-label="Instagram">
@@ -975,7 +975,7 @@
                 </a>
 
                 {{-- 3. TikTok --}}
-                <a href="https://tiktok.com/@tokmuch" 
+                <a href="https://www.tiktok.com/@master.duduk?_r=1&_t=ZS-92xMe3S46BG" 
                    class="social-btn tiktok" 
                    target="_blank"
                    aria-label="TikTok">
