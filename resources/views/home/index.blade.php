@@ -180,7 +180,8 @@
         display: block;
         position: relative;
         z-index: 2;
-        top: 16px;
+        top: 5px;
+        left: 10px;
         border: 2px solid rgba(218, 165, 32, 0.3);
         box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         transition: transform 0.3s ease;
@@ -522,6 +523,15 @@
         
         .about-image {
             height: 300px;
+            margin-top: 0.1rem;
+            border-radius: 15px;
+            top: 0%;
+            left: 0%;
+        }
+
+        .read-more-btn {
+            font-size: 1rem;
+            margin-left: 5rem;
         }
 
         .feature-list {
@@ -531,6 +541,10 @@
         
         .about-text p {
             text-align: left; /* Di HP jangan justify biar ga bolong2 */
+        }
+
+        .greeting-badge {
+            font-size: 0.7rem;
         }
 
         /* HEADER KATEGORI (Solusi Font Kegedean) */

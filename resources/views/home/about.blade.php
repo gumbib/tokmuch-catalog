@@ -78,8 +78,8 @@
         content: '';
         position: absolute;
         inset: 0;
-        top: -18px; left: 10px;
-        width: 102%; height: 101%;
+        top: -20px; left: 10px;
+        width: 103%; height: 102%;
         transform: translate(-15px, 15px);
         border: 2px solid var(--accent-coral);
         border-radius: 24px;
@@ -129,13 +129,22 @@
     .feature-item span { font-size: 0.85rem; color: var(--text-secondary); }
 
     /* Responsive HP */
-    @media (max-width: 900px) {
+    @media (max-width: 768px) {
         .about-card {
             grid-template-columns: 1fr;
             padding: 2rem;
             gap: 3rem;
             text-align: center;
         }
+
+        .about-image-wrapper {
+            border-radius: 15px;
+        }
+
+        .about-image {
+            border-radius: 20px;
+        }
+
         .about-text p { text-align: left; }
         .feature-list { grid-template-columns: 1fr; text-align: left; }
         .about-image-wrapper { margin-bottom: 1rem; max-width: 300px; }
