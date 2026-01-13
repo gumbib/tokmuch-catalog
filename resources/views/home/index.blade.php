@@ -862,7 +862,7 @@
 
             <div class="about-text">
                 <span class="greeting-badge">{{ $aboutTitle }}</span>
-                <p><strong>TOKMUCH</strong> (Toko Muchtarom) adalah brand kreatif yang berdiri sejak 2019 sebagai bentuk penghormatan dan identitas personal pendirinya. Kami bergerak di bidang seni lukis manual dan produk kreatif berbasis custom dengan standar estetika tinggi.</p>
+                <p><strong>TOKMUCH</strong> (Toko Muchtarom), adalah brand kreatif yang berdiri sejak 2019 sebagai bentuk penghormatan dan identitas personal pendirinya. Kami bergerak di bidang seni lukis manual dan produk kreatif berbasis custom dengan standar estetika tinggi.</p>
 
                 <a href="{{ route('about') }}" class="read-more-btn">
                     Lebih Detail <i class='bx bx-right-arrow-alt'></i>
@@ -958,15 +958,15 @@
             
             <div class="social-links">
                 
-                {{-- 1. WhatsApp --}}
-                <a href="https://wa.me/{{ $whatsappNumber }}?text={{ urlencode('Halo TOKMUCH, saya ingin custom order...') }}" 
+                {{-- WhatsApp --}}
+                <a href="https://wa.me/{{ $whatsappNumber }}?text={{ urlencode('Halo TOKMUCH, saya ingin order...') }}" 
                    class="social-btn whatsapp" 
                    target="_blank"
                    aria-label="WhatsApp">
                     <i class='bx bxl-whatsapp'></i>
                 </a>
 
-                {{-- 2. Instagram --}}
+                {{-- Instagram --}}
                 <a href="https://www.instagram.com/yuli.wiii?igsh=NTc4MTIwNjQ2YQ==" 
                    class="social-btn instagram" 
                    target="_blank"
@@ -974,7 +974,7 @@
                     <i class='bx bxl-instagram'></i>
                 </a>
 
-                {{-- 3. TikTok --}}
+                {{-- TikTok --}}
                 <a href="https://www.tiktok.com/@master.duduk?_r=1&_t=ZS-92xMe3S46BG" 
                    class="social-btn tiktok" 
                    target="_blank"
