@@ -1,0 +1,90 @@
+erDiagram
+    %% TOKMUCH Project ERD
+
+    User {
+        bigint id PK
+        string name
+        string email
+        string password
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    Testimonial {
+        bigint id PK
+        string author_name
+        string content
+        integer rating
+        boolean is_active
+        string order
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    Setting {
+        bigint id PK
+        string key
+        string value
+        string type
+        string group
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    Product {
+        bigint id PK
+        string category_id FK
+        string title
+        string description
+        decimal price
+        string image_icon
+        string gradient_color
+        boolean is_featured
+        string order
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    CustomerAddress {
+        bigint id PK
+        string customer_name
+        string customer_phone
+        string customer_email
+        string address
+        string province_id
+        string province_name
+        string city_id
+        string city_name
+        string subdistrict_id
+        string subdistrict_name
+        string postal_code
+        string product_name
+        decimal product_price
+        integer product_weight
+        string shipping_courier
+        string shipping_service
+        decimal shipping_cost
+        string payment_method
+        string shipping_etd
+        decimal total_amount
+        string notes
+        string status
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    Category {
+        bigint id PK
+        string name
+        string slug
+        string description
+        string icon
+        string price_range
+        string gradient_color
+        string order
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    Product }o--|| Category : "belongs to"
+    Category ||--o{ Product : "has many"
